@@ -1,0 +1,142 @@
+Instructor's solution: RedditClone
+#try method usage
+begin end while loop...
+Use of inverse_of option on all regular has_many associations
+Usage of #present? method
+Usage of implicit rendering
+Instead of setting manually, #new(etc: params[:etc]) looks cleaner
+
+Usage of @new_comment = @comment.child_comments.new -> I guess the reasoning
+behind this is to use all the inverse_of options set
+
+You've been utilizing render in a lot of situations where you should have
+redirected. Think about where you are in the application, and whether the
+path should change or controller methods should be called.
+
+Checks for moderator/owner before displaying edit/etc, I forgot...
+------------------------------------------------------------------
+
+Rail's Lite!
+-------------
+How to use a tool vs how a tool works/how to build one!
+
+HTTP, web application frameworks, Rails, request/response cycle
+
+Understand the point of each spec-- understand the greater context of
+the framework.
+
+HTTP: hypertext transfer protocol
+Hypertext -> can take you to other media
+Transfer -> All about sending hypertext to one location to another
+Protocol -> Agreed on set of rules about how the transfer will take place
+
+Transfer is just a request and response!
+
+HTTP Request -> presumes a reliable connection, just what the text is going to be
+sent is going to look like
+
+HTTP REQUEST :
+HTTP-METHOD HTTP-PATH HTTP-VERSION(HTTP/1.1)
+Headers! Metadata(Language: , host: , host is one of the only required headers)
+(After all the headers, two returns for a blank space)
+GET request no body according to HTTP-standard, so it ends here!
+
+HTTP RESPONSE:
+HTTP VERSION STATUS-CODE MESSAGE
+Headers! Content-Length Content-Type(text html etc)
+Blank line
+The body, the response, the content!
+
+nc -> netcap
+nc host port
+method path version
+Host
+
+Look at the response! Has things such as accept-ranges, cache-control, content-type,
+date, etag, expires, etc, a body...
+-------------------------------------------------------
+
+Rails -> web application framework
+Software framework specifically to make web apps!
+Rails receives HTTP requests and gives back HTTP responses
+
+HTTP request -> webserver(webrick) -> Rails!
+Rails has prebuilt: Router, ActionController::Base, ActiveRecord::Base, generates
+SQL queries for us, controller sends back response!
+
+We write: routes, controller which inherits from ActionController, model which
+inherits from ActiveRecord, view
+
+Router matches w/ routes file for matches, if it does after receiving a request,
+it instantiates a new controller instance. Also give params!
+-------------------------------------------------------------
+Make base controller and router class! -> Base Rails functionality
+
+Hmm, how is getting the params and instance variables everywhere working?
+Let's see by building Rails Lite!
+-----------------------------------------------------
+Rack -> Middleware
+Rack sits between Web Servers and Web Application Frameworks
+
+WEBrick -> default Rails server for Rails 4. (Rails 5 and 6 uses Puma)
+
+Webservers: Unicorn, WEBrick, Thin, Puma, etc
+Multiple Ruby web application frameworks: Padrino, Rails, Sinatra, Camping, etc
+
+Web server takes HTTP request and parse into Ruby object, then pass into web
+application framework.
+
+Once request is processed and web application framework sends response back to the
+web server!
+
+What Rack does is make all webservers and web application frameworks compliant
+with it. This way, all web servers can communicate w/ all web application frameworks
+and vice-versa.
+
+e.g. all it is a set of rules of how a HTTP request and HTTP response must look
+like as Ruby objects
+-----------------------------------------------------------------
+Rack demo!
+Rack::Server.start -> app(class name), port
+::Request.new -> can call #params, #cookies, #path
+::Response.new -> can call #write, #finish, #set_cookie
+def self.call(env) after making a class w/ App Name
+require 'json' for #to_json
+
+Proc object instead of a class! -> Rack just needs to respond to a method
+call, receive 1 argument, then return a properly formatted Rack response.
+
+How to do a redirect? Set a status code and a header(location)
+e.g res['Location'] = google.com
+
+Chrome dev -> Application -> Cookies
+---------------------------------------------------------
+
+TCP - Transmission Control Protocol
+IP - Internet Protocol
+
+Developed with these key philosophies in mind: (large-scale distributed
+survivable communication network)
+1. decentralized network
+2. dividing messages into message blocks (packets)
+3. delivering messages using "store and forward" method
+
+IP -> set of rules for sending info from 1 PC to another. Handles both
+assigning addresses and routing information from a source to a target.
+Can cross network boundaries.
+Internet (inter-network process)
+Main functions that IP standarizes are:
+1. finding next-hop host and sending packet to that host
+2. capturing incoming packets and passing payloads to transport layer
+3. providing error detection and diagnostics
+IP -> unreliable service and best effort delivery
+IP addresses -> identifier assigned to a computer connected to a TCP/IP
+network. Two major versions: IPv4 32 bit addresses, IPv6 128 bit addresses
+
+Packet -> formatted unit of data that contains along w/ payload, control
+info: data for delivering payload. Control info stored in header of packet
+typically includes source and destination addresses.
+Example of a datagram, characteristic is having enough info to make from
+source to target w/o two computers previously communicated.
+
+
