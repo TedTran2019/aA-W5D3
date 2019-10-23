@@ -139,4 +139,160 @@ typically includes source and destination addresses.
 Example of a datagram, characteristic is having enough info to make from
 source to target w/o two computers previously communicated.
 
+TCP - higher level protocol running on top of IP. Provides applications w/
+info delivered by IP, but provides additional work ensuring info is reliable,
+ordered, and error checked. Maintains reliability by continually sending
+acknowledgments to the source of the info as it receives packets. If no
+acknowledgment, send packet again! Is also responsible or breaking
+large pieces of info into packets to be sent via IP, and reassembling
+groups o individual packets into info that can be used by apps
+
+Handshaking -> Three steps: synchronize, synchronize-acknowledgment, acknowledgment
+Once this process has happened, 2 computers can send ino to each other using TCP
+
+Ports: TCP uses port numbers to identify app end points on a PC.
+E.g rails server -> localhost:3000, tells you both IP address of the live site
+and the port on which to connect to the site.
+
+Application Layer: abstraction of a set of protocols and interfaces used by
+computers in a communications network, generally describes applications that
+interact w/ TCP.Can include apps that implement protocols including:
+Telnet, FTP, SMTP, DNS, HTTP, SSH
+
+E.g Browser implements HTTP, underlaying transport layer uses TCP, internet layer
+uses IP.
+------------------------------
+
+401 -> unauthorized
+Rack::Response#write appends the given string to the body and updates Content-Length.
+/^[^\?]*/ -> Captures everything after the / and before the ?
+
+Web Server -> Rack -> Web App, and vice-versa
+--------------------------
+
+Rack additional functionality: additional modules of code in privileged spot
+Things that need to happen but don't really belong in the web application
+
+Store on middleware area!:
+Static assets!
+Generic common code used throughout the web application
+
+Middleware -> make a class, initialize method w/ app as argument, save app
+as instance variable, then call it with env as argument... app.call(env)!
+
+Rack::Builder.new do
+ DSL to utilize middleware! use, run, etc
+end.to_app
+#to_app makes the app Rack-compatible
+
+Middleware initialized before webserver started!
+Higher up == loaded first!
+
+env[HTTP_USER_AGENT] tells you what the browser is!
+'MSIE' == Internet Explorer
+
+Console -> network conditions -> choose browser in google dev tools
+
+Middeware -> initialized bottom up, called top down
+-----------------------------------------------------
+TCP is the transport protocol upon which HTTP uses
+reliable -> guarantee that info is reliable and in order
+Think about two armies and enemy town analogy-- how is this solved?
+Keep sending messengers until you get a response!
+Split into packets w/ meta-data, so you only need to resend parts and not the
+entire thing if lost. Then reconstruct once all messages are obtained!
+Information constantly resent until confirmation is obtained.
+
+DNS - domain name system
+It's like putting a name on an envelope w/o an address and just handing it to the
+post office, and it arrives! By what system does it work?
+Host Name -> IP address
+Browser asks OS if they've been there b4, info is cached!
+If can't find since not visited yet, OS makes a DNS query!
+DNS query to ISP, ISP has DNS resolver will do the entire process to find IP address
+DNS resolver -> makes series of queries to different servers
+DNS resolver -> starts at top level domain, gets response, if not found, query
+next nameserver w/ information from previous
+
+Remember that domains are split! e.g .com nameserver holds .com
+.com -> google.com -> www.google.com (Worst case scenario)
+
+Resolver and all nameserver also cache records!  DNS resolver shared by all who
+uses said resolver (ie. uses same ISP)
+Also, if DNS resolver knows where google.com is, can skip .com!
+
+Resolver/namespaces can cache and skip steps if already has info! Rather fast.
+
+Can advantage of the DNS process to do load-balancing, aka route people to diff.
+physical servers based on on what the load/traffic is like. Each nameserver
+determines how long its caching should be valid for!
+-----------------------------------------------------------------
+
+Server -> always running and client can connect to server
+To create a server! require 'socket', TCPServer.new(put port here!)
+while true
+	socket = server.accept
+	socket.close
+end
+
+nc -> open a TCP connection to a server
+
+localhost is a special host name that means, "my own computer"
+80 is traditional port for HTTP requests
+
+require 'thread'
+Thread.new do
+	etc
+end
+
+Concurrency = two tasks can start, run, and complete in overlapping time periods
+Parallelism = tasks literally run at the same time, e.g multi-core processor
+
+Multithreading -> multiple threads of execution concurrently
+Multiprocessing -> runnign two/more programs/sequences simultaneously by a computer
+w/ more than one central processor
+
+GIL -> Global Interpreter Lock -> Only allows one thread to execute at a time
+
+--------------------------------------------------------------
+Ruby -> thread raises an exception doesn't kill entire program!
+Thread.abort_on_exception = true
+
+CRUD servers: create, read, update, destroy
+
+HTTP formalizes CRUD servers, a protocol! HTTP generalizes it!
+
+On top of TCP, HTTP! HyperText Transfer Protocol on top of Transmission Control Protocol
+HTML - HyperText Markup Language
+
+REGEX to pull out info you want!
+Match object will be the information you want or nil
+Blank line == no more header!!
+JSON.parse(json string)
+-------------------------------------------------------------
+
+Damn, these lecture + video + lecture repeating content 3x is hella tiring.
+
+HTTP can transfer all sorts of diff. resources
+3 steps of HTTP:
+1. Establish connection btwn client and host (TCP handles this step)
+2. Client creates a request and sends to host (string formatted to certain rules)
+	a. HTTP method, request target, HTTP protocol version, header, body
+	b. only host is necessary, all others optional for header.
+	c. header is K:V pairs, diff header fields: https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Request_fields
+	d. common fields: accept, content-type, cookie, host, user-agent
+3. Host creates a response and sends to client
+	a. HTTP protocol, status code, text of status code, header, body
+	b. status codes fall into 1xx(info), 2xx(success), 3xx(redirection), 4xx(client error),
+		 5xx(server error). 200 OK, 302 Moved, 404 Not Found, 500 Internal Server Error
+	c. header fields: https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Response_fields
+	d.content-type, date, last-modified, location, set-cookie
+	e. response body: actual content of response. e.g HTML doc, JSON string, binary
+		 data representing image, etc
+
+MIME type: HTTP equiv. of filename extension. Specified in content-tyep response
+header and tells client hwo to parse response body, composed of a type, subtype, and
+zero or more optional parameters.
+Common ones: application/json, application/pdf, application/zip, image/jpg,
+image/png, image/gif, text/html, text/plain
 
