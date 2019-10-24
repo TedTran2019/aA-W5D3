@@ -296,3 +296,51 @@ zero or more optional parameters.
 Common ones: application/json, application/pdf, application/zip, image/jpg,
 image/png, image/gif, text/html, text/plain
 
+Rack does many things, summed up as a server-side framework its purpose is to
+receive/parse HTTP requests and generate HTTP responses.
+
+Middleware -> sits between web server and web framework to standarize
+
+To create a Rack server:
+1. Require the 'rack' library
+2. Create an object that responds to a #call method
+3. The #call method should take one argument, conventionally called env,
+		that bundles all the data about the request
+4. The #call method should return an array with three elements:
+	a. An HTTP status code (like '200' or '404')
+	b. A hash of headers
+	c. A response body
+5. Pass the object to Rack::Server#start
+
+8080 is the default port!
+
+Rack::Request and Rack::Response to abstract HTTP request/response into objects
+EtcController(req, res).go -> builds up the response object
+
+Rack::Builder DSL to add additional middleware to framework.
+	a. use <Middleware_name>
+	b. run <NameofApp>
+	c. #to_app will convert into type of object needed to pass into Rack::Server#start
+Many of Rails features are implemented as middleware!
+Group of middlewares == stack
+
+#call(env) to skip and move onto next middleware or the application itself
+--------------------------------------------------------
+#instance_eval on instance -> instance method on ONE instance
+#instance_eval on class -> creates class methods
+#class_eval on instance -> creates instance methods
+
+#instance_eval evaluates code in context of its receiver as an instance
+#class_eval does the same as a class
+
+Both are useful for dynamically creating methods!
+-----------------------------------------------------------
+
+Completing https://regexone.com/ !!!
+1. EVERYTHING is a character
+2. writing patterns to match a specific sequence of characters(string)
+3. can match normal ASCII or unicode
+
+matches whatever you type in, in order! e.g abc123, starting anywhere in string
+\d any digit
+\D any non-digit
