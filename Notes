@@ -342,5 +342,24 @@ Completing https://regexone.com/ !!!
 3. can match normal ASCII or unicode
 
 matches whatever you type in, in order! e.g abc123, starting anywhere in string
+\w for alphanumeric numbers and digits,
 \d any digit
-\D any non-digit
+\D any non-digit, capital for anything means non- version of it
+. wildcard, to match a period you'll need to \.
+[] will only match whatever that's inside
+^ inside of square brackets to exclude
+- inside of square brackets to indicate a character range, multiple character
+	ranges can be used in the same set of brackets
+{} to specify a certain number of matches, e.g a{3} to do aaa, can also do
+	ranges for this like {1-3}, for at least once but at most 3 times
+* and +, * being 0 or more /////// + being 1 or more, can combine with anything
+? denotes optional, doesn't have to match to be a match
+\s will match with any whitespace, \t tab, \n newline, \r carriage return, etc
+^ outside of brackets to denote where to start matching
+$ outside of brackets to denote where to end matching
+() to capture information as a group
+Nest () to nest captures! Use () multiple times to capture multiple groups
+With groups, can use | as OR for different matches
+\b matches boundary btwn word and a non-word... \w+\b to find words
+Some allow back referencing, using \0 to refer to group 0, \1 to group 1, etc.
+
