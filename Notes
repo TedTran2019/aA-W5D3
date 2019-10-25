@@ -362,4 +362,11 @@ Nest () to nest captures! Use () multiple times to capture multiple groups
 With groups, can use | as OR for different matches
 \b matches boundary btwn word and a non-word... \w+\b to find words
 Some allow back referencing, using \0 to refer to group 0, \1 to group 1, etc.
+------------------------------------------------------------
 
+Know how the basics of the HTTP request-response cycle works
+Know how a server works at a basic level
+Be able to explain the functionality of the ControllerBase class
+Know how cookies are used by browsers and servers
+Be able to write a router that parses a URL and instantiates the appropriate controller
+Know how params get built out of the HTTP request's information
