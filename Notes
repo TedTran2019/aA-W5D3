@@ -402,3 +402,12 @@ Browsers typically make two requests per page: one for the page, and a second
 
 #intance_eval takes a proc and evaluates it in the context of the object!
 &proc in an argument is a reference to a block passed to a method
+
+Ugh. Wasted a lot of time because of
+1. using @ and forgetting to remove it, instead of raising error it's just nil
+	for unset instance variables
+2. forgetting to put #each and wondering why it wasn't iterating
+
+That's about an hour of my life gone over extremely silly mistakes. Pay attention
+to the small things like variables you set or didn't set, (@ or not), and whether
+you put an #each or forgot it...
