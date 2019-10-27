@@ -34,7 +34,7 @@ describe ShowExceptions do
 
       it 'sets the status code to 500' do
         response = mock_exception.call(env)
-        expect(response[0]).to eq '500'
+        expect(response[0]).to eq "500"
       end
 
       it 'sets the content type to text/html' do
