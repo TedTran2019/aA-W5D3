@@ -6,7 +6,7 @@ require 'securerandom'
 
 class ControllerBase
   attr_reader :req, :res, :params
-  @@protect_from_forgery = false
+  @@protect_from_forgery ||= false
 
   # Setup the controller
   def initialize(req, res, params = {})

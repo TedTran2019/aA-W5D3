@@ -434,3 +434,43 @@ https://en.wikipedia.org/wiki/MIME
 File.dirname(__FILE__) and File.join are really useful.
 
 Pay attention to the specs-- they tell you exactly what you need to do.
+
+I believe app.call(env) goes to the next piece of middleware? e.g do you wish to
+skip and move on, or return a response here
+
+For static:
+1. Instructor used FileServer.new and had many more private methods
+2. #index to find if the matching was in path or not instead of Regexp
+3. MIME_TYPES hash
+4. Use of File::exist?
+5. Use of File.extname to get the extension rather than through Regexp
+6. Setting the "Content-type" thru MIME_TYPES
+7. Lack of calling res.finish (#finish is also an alias for #to_a)
+
+For show_exceptions:
+1. I stopped after passing the specs, which was unwise
+2. rendered rescue template thru the same rendering process as shown in render
+3. showed a stack trace due to using #backtrace
+4. got the code itself thru using File.open(file_name, 'r') and reading it-- the
+	file_name was obtained thru the backtrace
+5. formatted the output to make it neater
+
+for session: nothing different besides names and minor things
+
+for router:
+1. for #route_params, using using #names, #zip, #captures to put it all inside of a hash.
+	 a. I just iterated through param.names to set rather than using #zip, #captures, etc
+2. Huh, I used __method__ in define method because of a misunderstanding on how
+	it would work/scopes. Eh, it worked anyway.
+3. Use of #find instead of just basic iteration then nil
+
+for flash:
+1. I'm an idiot and overcomplicated things.
+2. Basically, the old_flash and flash_now can share the same hash because they both
+   won't last till' the next. Only the current flash will. Wasted a couple lines
+	 of code and effort!
+
+for controller_base:
+1. Forgot to set @@protect_from_forgery class variable to ||= conditional assignment
+2. I forgot entirely about testing flash...
+3. Didn't automatically call form_authenticity_token in invoke_action, but unnecessary
